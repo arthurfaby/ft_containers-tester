@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear.cpp                                          :+:      :+:    :+:   */
+/*   clear(string).cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/13 18:38:31 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:28:05 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 int	main(void)
 {
-	NS::vector<int>	v;
+	NS::vector<std::string>	v;
 
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		v.push_back(i);
+		v.push_back("string " + tester::to_string(i));
 
 	printVector(v);
 	v.clear();

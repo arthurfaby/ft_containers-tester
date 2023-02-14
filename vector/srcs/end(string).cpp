@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end.cpp                                            :+:      :+:    :+:   */
+/*   end(string).cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/14 10:59:50 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:30:53 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 
 int	main(void)
 {
-	NS::vector<int>	v;
+	NS::vector<std::string>	v;
 
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		v.push_back(i);
+		v.push_back("string " + tester::to_string(i));
 
-	const NS::vector<int>	v2(v.begin(), v.end());
+	const NS::vector<std::string>	v2(v.begin(), v.end());
 	{	
-		NS::vector<int>::iterator		it = v.begin();
-		NS::vector<int>::iterator		ite = v.end();
-		NS::vector<int>::const_iterator	it2 = v.begin();
-		NS::vector<int>::const_iterator	ite2 = v.begin();
+		NS::vector<std::string>::iterator		it = v.begin();
+		NS::vector<std::string>::iterator		ite = v.end();
+		NS::vector<std::string>::const_iterator	it2 = v.begin();
+		NS::vector<std::string>::const_iterator	ite2 = v.begin();
 		
 		printVector(v);
 		for (; it != ite; ++it)
@@ -39,8 +39,8 @@ int	main(void)
 		printVector(v);
 	}
 	{
-		NS::vector<int>::const_iterator	it = v2.begin();
-		NS::vector<int>::const_iterator	ite = v2.end();
+		NS::vector<std::string>::const_iterator	it = v2.begin();
+		NS::vector<std::string>::const_iterator	ite = v2.end();
 		printVector(v);
 		for (; it != ite; ++it)
 			std::cout << *it << " ";

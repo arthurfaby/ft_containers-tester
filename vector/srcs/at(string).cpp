@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   at.cpp                                             :+:      :+:    :+:   */
+/*   at(string).cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/13 18:29:58 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:25:00 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 int	main(void)
 {
-	NS::vector<int>	v;
+	NS::vector<std::string>	v;
 
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		v.push_back(i);
+		v.push_back("string " + tester::to_string(i));
 
 	printVector(v);
 	for (size_t i = 0; i < TEST_SIZE; ++i)
@@ -27,7 +27,7 @@ int	main(void)
 	std::cout << std::endl;
 	printVector(v);
 
-	const NS::vector<int>	v2(v.begin(), v.end());
+	const NS::vector<std::string>	v2(v.begin(), v.end());
 	printVector(v2);
 	for (size_t i = 0; i < TEST_SIZE; ++i)
 		std::cout << v2.at(i) << " ";

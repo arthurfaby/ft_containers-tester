@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operator[].cpp                                     :+:      :+:    :+:   */
+/*   operator(string)[].cpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/14 11:23:09 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:40:57 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 int	main(void)
 {
-	NS::vector<int>	v;
+	NS::vector<std::string>	v;
 
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		v.push_back(i);
+		v.push_back("string " + tester::to_string(i * 2));
 
 	printVector(v);
 	for (size_t i = 0; i < TEST_SIZE; ++i)
@@ -27,26 +27,10 @@ int	main(void)
 	std::cout << std::endl;
 	printVector(v);
 
-	const NS::vector<int>	v2(v.begin(), v.end());
+	const NS::vector<std::string>	v2(v.begin(), v.end());
 	printVector(v2);
 	for (size_t i = 0; i < TEST_SIZE; ++i)
 		std::cout << v2[i] << " ";
 	std::cout << std::endl;
 	printVector(v2);
-
-	try {
-		std::cout << "TRYING AT OUT OF RANGE POSITIVE" << std::endl;
-		std::cout << v[TEST_SIZE + 5] << std::endl;
-	}
-	catch (const std::exception& e) {
-		std::cout << e.what() << std::endl;
-	}
-
-	try {
-		std::cout << "TRYING AT OUT OF RANGE NEGATIVE" << std::endl;
-		std::cout << v[-12] << std::endl;
-	}
-	catch (const std::exception& e) {
-		std::cout << e.what() << std::endl;
-	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   begin.cpp                                          :+:      :+:    :+:   */
+/*   begin(string).cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/13 18:32:57 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:25:49 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 
 int	main(void)
 {
-	NS::vector<int>	v;
+	NS::vector<std::string>	v;
 
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		v.push_back(i);
+		v.push_back("string " + tester::to_string(i));
 
-	const NS::vector<int>	v2(v.begin(), v.end());
+	const NS::vector<std::string>	v2(v.begin(), v.end());
 	{	
-		NS::vector<int>::iterator		it = v.begin();
-		NS::vector<int>::const_iterator	it2 = v.begin();
+		NS::vector<std::string>::iterator		it = v.begin();
+		NS::vector<std::string>::const_iterator	it2 = v.begin();
 		std::cout << "begin() : " << *it << std::endl;
 		std::cout << "begin() : " << *it2 << std::endl;
 	}
 	{
-		NS::vector<int>::const_iterator	it = v2.begin();
+		NS::vector<std::string>::const_iterator	it = v2.begin();
 		std::cout << "begin() : " << *it << std::endl;
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resize.cpp                                         :+:      :+:    :+:   */
+/*   resize(string).cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/14 11:39:08 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:45:01 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 
 int	main(void)
 {
-	NS::vector<int>	v;
+	NS::vector<std::string>	v;
 
 	printVector(v);
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		v.push_back(i * 5);
+		v.push_back("string " + tester::to_string(i * 5));
 
 	printVector(v);
 
 	v.resize(10);
 	printVector(v);
-	v.resize(100, 42);
+	v.resize(100, "42");
 	printVector(v);
 	
 }

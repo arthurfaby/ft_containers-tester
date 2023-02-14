@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reverse_iterator.cpp                               :+:      :+:    :+:   */
+/*   reverse_iterator(string).cpp                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/14 11:06:02 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:45:23 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 int	main(void)
 {
 	std::cout << "TESTING ON NON CONST VECTOR" << std::endl;
-	NS::vector<int>	v;
+	NS::vector<std::string>	v;
 
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		v.push_back(i);
+		v.push_back("string " + tester::to_string(i));
 
 	printVector(v);
 
 	{
-		NS::vector<int>::reverse_iterator	cit = v.rbegin();
-		NS::vector<int>::reverse_iterator	cite = v.rend();
+		NS::vector<std::string>::reverse_iterator	cit = v.rbegin();
+		NS::vector<std::string>::reverse_iterator	cite = v.rend();
 	
 		for (; cit != cite; ++cit)
 			std::cout << *cit << " "; 
@@ -55,7 +55,7 @@ int	main(void)
 
 		std::cout << cit[12] << std::endl;
 
-		NS::vector<int>::reverse_iterator	other	= v.rbegin();
+		NS::vector<std::string>::reverse_iterator	other	= v.rbegin();
 		std::cout << (other == cit) << std::endl;
 		std::cout << (other == v.rbegin()) << std::endl;
 		std::cout << (other != cit) << std::endl;

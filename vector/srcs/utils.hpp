@@ -6,7 +6,7 @@
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:41 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/13 15:01:18 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:24:16 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #ifndef NS
 	# define NS std
 	# include <vector>
@@ -38,4 +39,20 @@ void	printVector(const NS::vector<V>& vec)
 		std::cout << " Front : " << vec.front() << std::endl;
 		std::cout << " Back : " << vec.back() << std::endl;
 	}
+}
+
+namespace tester
+{
+
+std::string	to_string(int i)
+{
+	std::stringstream	stream;
+
+	stream << i;
+	std::string	res;
+
+	stream >> res;
+	return (res);
+}
+
 }

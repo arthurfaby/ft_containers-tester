@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iterator.cpp                                       :+:      :+:    :+:   */
+/*   iterator(string).cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/14 11:01:15 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:35:53 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 int	main(void)
 {
 	std::cout << "TESTING ON NON CONST VECTOR" << std::endl;
-	NS::vector<int>	v;
+	NS::vector<std::string>	v;
 
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		v.push_back(i);
+		v.push_back("string " + tester::to_string(i));
 
 	printVector(v);
 
 	{
-		NS::vector<int>::iterator	cit = v.begin();
-		NS::vector<int>::iterator	cite = v.end();
+		NS::vector<std::string>::iterator	cit = v.begin();
+		NS::vector<std::string>::iterator	cite = v.end();
 	
 		for (; cit != cite; ++cit)
 			std::cout << *cit << " "; 
@@ -55,7 +55,7 @@ int	main(void)
 
 		std::cout << cit[12] << std::endl;
 
-		NS::vector<int>::iterator	other	= v.begin();
+		NS::vector<std::string>::iterator	other	= v.begin();
 		std::cout << (other == cit) << std::endl;
 		std::cout << (other == v.begin()) << std::endl;
 		std::cout << (other != cit) << std::endl;

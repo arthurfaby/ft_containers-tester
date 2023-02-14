@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operator[].cpp                                     :+:      :+:    :+:   */
+/*   operator[](int).cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/14 11:23:09 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/14 18:41:07 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,4 @@ int	main(void)
 		std::cout << v2[i] << " ";
 	std::cout << std::endl;
 	printVector(v2);
-
-	try {
-		std::cout << "TRYING AT OUT OF RANGE POSITIVE" << std::endl;
-		std::cout << v[TEST_SIZE + 5] << std::endl;
-	}
-	catch (const std::exception& e) {
-		std::cout << e.what() << std::endl;
-	}
-
-	try {
-		std::cout << "TRYING AT OUT OF RANGE NEGATIVE" << std::endl;
-		std::cout << v[-12] << std::endl;
-	}
-	catch (const std::exception& e) {
-		std::cout << e.what() << std::endl;
-	}
 }
