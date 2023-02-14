@@ -83,6 +83,7 @@ function out_std {
 	if [ $DIFF_EXIT_CODE -eq 0 ]
 	then 
 		echo -en "  $OK_TEXT  ║"
+		rm -rf vector/diffs/${TEST_NAME}.diff
 	else
 		echo -en "  $KO_TEXT  ║"
 	fi
