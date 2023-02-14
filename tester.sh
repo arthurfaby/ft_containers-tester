@@ -10,7 +10,7 @@ FT="-DNS=ft"
 OK_TEXT="\e[92m[OK]\e[0m"
 KO_TEXT="\e[91m[K0]\e[0m"
 
-COLS_CURRENT_TEST=24
+COLS_CURRENT_TEST=34
 COLS_COMPILATION=13
 COLS_EXIT_CODE=11
 COLS_OUTPUT=8
@@ -62,7 +62,7 @@ function out_std {
 		rm -rf vector/errors/${TEST_NAME}_ft
 	else
 		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║  $KO_TEXT  ║"
-		echo "╠════════════════════════╬═════════════╬═══════════╬════════╬════════╣"
+		echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╬════════╣"
 		return
 	fi
 	START_FT_SEC=`date +%s`
@@ -112,7 +112,7 @@ function out_std {
 		echo -en "\e[0m"
 		echo
 	fi
-	echo "╠════════════════════════╬═════════════╬═══════════╬════════╬════════╣"
+	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╬════════╣"
 }
 
 COMPILE="$CC $CFLAGS"
@@ -131,11 +131,11 @@ function test_vector {
 	then
 		mkdir vector/errors
 	fi
-	echo "╔════════════════════════════════════════════════════════════════════╗"
-	echo "║                                VECTOR                              ║"
-	echo "╠════════════════════════╦═════════════╦═══════════╦════════╦════════╣"
-	echo "║      Current test      ║ Compilation ║ Exit code ║ Output ║  Time  ║"
-	echo "╠════════════════════════╬═════════════╬═══════════╬════════╬════════╣"
+	echo "╔══════════════════════════════════════════════════════════════════════════════╗"
+	echo "║                                     VECTOR                                   ║"
+	echo "╠══════════════════════════════════╦═════════════╦═══════════╦════════╦════════╣"
+	echo "║           Current test           ║ Compilation ║ Exit code ║ Output ║  Time  ║"
+	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╬════════╣"
 	
 	for file in $VECTOR_FILES
 	do
