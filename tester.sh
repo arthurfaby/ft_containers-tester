@@ -55,10 +55,11 @@ function out_std {
 	
 	STD_EXIT_CODE=$?
 	rm -rf a.out
-	$COMPILE $FT $1 2> /dev/null
+	$COMPILE $FT $1 2> vector/errors/${TEST_NAME}_ft
 	if [ $? -eq 0 ]
 	then 
 		echo -en "    $OK_TEXT     ║"
+		rm -rf vector/errors/${TEST_NAME}_ft
 	else
 		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║  $KO_TEXT  ║"
 		echo "╠════════════════════════╬═════════════╬═══════════╬════════╬════════╣"
@@ -116,6 +117,7 @@ function out_std {
 COMPILE="$CC $CFLAGS"
 
 function test_vector { 
+	./tester.sh clean
 	if [ ! -d vector/logs ]
 	then
 		mkdir vector/logs
@@ -123,6 +125,10 @@ function test_vector {
 	if [ ! -d vector/diffs ]
 	then
 		mkdir vector/diffs
+	fi
+	if [ ! -d vector/errors ]
+	then
+		mkdir vector/errors
 	fi
 	echo "╔════════════════════════════════════════════════════════════════════╗"
 	echo "║                                VECTOR                              ║"
@@ -140,6 +146,7 @@ if [ "$1" == "clean" ]
 then
 	rm -rf ./vector/diffs
 	rm -rf ./vector/logs
+	rm -rf ./vector/errors
 	exit
 fi
 
