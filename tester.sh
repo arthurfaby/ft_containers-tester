@@ -92,7 +92,7 @@ function out_std {
 	TOTAL_DIFF_FT=$( echo "($END_FT_SEC - $START_FT_SEC) * 1000000 + ($END_FT_NSEC - $START_FT_NSEC) / 1000"  | bc )
 
 	
-	RATIO=$(echo "scale=1; $TOTAL_DIFF_STD / $TOTAL_DIFF_FT" | bc)
+	RATIO=$(echo "scale=1; $TOTAL_DIFF_FT / $TOTAL_DIFF_STD" | bc)
 
 	GREATER=$(echo "$RATIO > 20.0" | bc)
 	if [ $GREATER -eq 1 ]
