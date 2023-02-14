@@ -1,0 +1,10 @@
+In file included from ./vector/srcs/./../../../vector.hpp:23,
+                 from ./vector/srcs/./utils.hpp:22,
+                 from ./vector/srcs/const_iterator.cpp:13:
+./vector/srcs/./../../../utils/random_access_iterator.hpp: In instantiation of ‘ft::random_access_iterator<T>::random_access_iterator(const ft::random_access_iterator<It>&) [with It = const int*; T = int*]’:
+./vector/srcs/const_iterator.cpp:54:27:   required from here
+./vector/srcs/./../../../utils/random_access_iterator.hpp:52:23: error: invalid conversion from ‘ft::random_access_iterator<const int*>::pointer’ {aka ‘const int*’} to ‘ft::random_access_iterator<int*>::pointer’ {aka ‘int*’} [-fpermissive]
+   52 |   _target(other.base())
+      |                       ^
+      |                       |
+      |                       ft::random_access_iterator<const int*>::pointer {aka const int*}
