@@ -9,6 +9,8 @@ FT="-DNS=ft"
 
 OK_TEXT="\e[92m[OK]\e[0m"
 KO_TEXT="\e[91m[K0]\e[0m"
+SEGV_TEXT="\e[91m[SEGV]\e[0m"
+
 
 COLS_CURRENT_TEST=34
 COLS_COMPILATION=13
@@ -50,10 +52,10 @@ function out_std {
 	START_STD_SEC=`date +%s`
 	START_STD_NSEC=`date +%N`
 	./a.out > vector/logs/${TEST_NAME}_std 2> /dev/null
+	STD_EXIT_CODE=$?
 	END_STD_SEC=`date +%s`
 	END_STD_NSEC=`date +%N`
 	
-	STD_EXIT_CODE=$?
 	rm -rf a.out
 	$COMPILE $FT $1 2> vector/errors/${TEST_NAME}_ft
 	if [ $? -eq 0 ]
@@ -67,14 +69,17 @@ function out_std {
 	fi
 	START_FT_SEC=`date +%s`
 	START_FT_NSEC=`date +%N`
-	./a.out > vector/logs/${TEST_NAME}_ft 2> /dev/null
+	{ ./a.out > vector/logs/${TEST_NAME}_ft; } 2>> vector/errors/${TEST_NAME}_ft
+	FT_EXIT_CODE=$?
 	END_FT_SEC=`date +%s`
 	END_FT_NSEC=`date +%N`
-	FT_EXIT_CODE=$?
 	rm -rf a.out
 	if [ $STD_EXIT_CODE -eq $FT_EXIT_CODE ]
 	then
 		echo -en "   $OK_TEXT    ║"
+	elif [ $FT_EXIT_CODE -eq 139 ]
+	then
+		echo -en "  $SEGV_TEXT   ║"
 	else
 		echo -en "   $KO_TEXT    ║"
 	fi
