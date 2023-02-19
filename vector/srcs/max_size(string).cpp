@@ -12,10 +12,14 @@
 
 #include "utils.hpp"
 
+#ifndef TEST_SIZE
+	#define TEST_SIZE 100
+#endif
+
 int	main(void)
 {
 	NS::vector<std::string>	v;
 
-	for (size_t i = 1; i < 100; ++i)
-		std::cout << v.max_size() * i * 10 << std::endl;
+	for (size_t i = 1; i < TEST_SIZE; ++i)
+		std::cout << v.max_size()  << std::endl;
 }

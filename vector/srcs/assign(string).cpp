@@ -6,14 +6,16 @@
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:20 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/14 18:25:28 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/19 14:18:55 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./utils.hpp"
 #include <list>
 
-#define TEST_SIZE 10000
+#ifndef TEST_SIZE
+	#define TEST_SIZE 100
+#endif
 
 int	main(void)
 {

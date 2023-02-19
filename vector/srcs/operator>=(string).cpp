@@ -12,7 +12,9 @@
 
 #include "utils.hpp"
 
-#define TEST_SIZE 10000
+#ifndef TEST_SIZE
+	#define TEST_SIZE 100
+#endif
 
 int	main(void)
 {

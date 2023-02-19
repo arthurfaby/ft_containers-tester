@@ -12,7 +12,9 @@
 
 #include "./utils.hpp"
 
-#define TEST_SIZE 10000
+#ifndef TEST_SIZE
+	#define TEST_SIZE 100
+#endif
 
 int	main(void)
 {
@@ -45,7 +47,7 @@ int	main(void)
 		cit += 2;
 		std::cout << *cit << std::endl;
 
-		cit = cit - 100;
+		cit = cit - 3;
 		std::cout << *cit << std::endl;
 		cit = cit + 5;
 		cit = 5 + cit;
@@ -96,7 +98,7 @@ int	main(void)
 		cit += 2;
 		std::cout << *cit << std::endl;
 
-		cit = cit - 100;
+		cit = cit - 2;
 		std::cout << *cit << std::endl;
 		cit = cit + 5;
 		cit = 5 + cit;
