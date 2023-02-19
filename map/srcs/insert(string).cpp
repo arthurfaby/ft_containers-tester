@@ -6,7 +6,7 @@
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 13:22:02 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/19 15:34:51 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/19 20:29:55 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(void)
 
 	TMAP::iterator	pos = m.begin();
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		m.insert(pos++, NS::make_pair<std::string, std::string>("string " + tester::to_string(i), "string " + tester::to_string(i * 3)));
+		m.insert(pos++, NS::make_pair<std::string, std::string>("string " + tester::to_string(i * 2), "string " + tester::to_string(i * 3)));
 	it = m.begin();
 	while (it != ite)
 		std::cout << it->first << " --> " << (it++)->second << std::endl;
