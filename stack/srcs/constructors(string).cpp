@@ -15,16 +15,16 @@
 
 int	main(void)
 {
-	NS::stack<int>	s;
+	NS::stack<std::string>	s;
 
 	printStack(s, "s");
-	NS::stack<int, std::deque<int> >	sc(std::deque<int>);
+	NS::stack<std::string, std::deque<std::string> >	sc(std::deque<std::string>);
 
 	std::cout << "Pushing " << TEST_SIZE << " elements to stack s." << std::endl;
 	for (size_t i = 0; i < TEST_SIZE; ++i)
-		s.push(i);
+		s.push(tester::to_string(i));
 
-	NS::stack<int>	s2(s);
+	NS::stack<std::string>	s2(s);
 	printStack(s, "s");
 	printStack(s2, "s2");
 

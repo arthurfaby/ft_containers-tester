@@ -6,7 +6,7 @@
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:41 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/20 13:09:05 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/20 13:37:05 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,32 @@
 #endif
 
 template<class T>
-void	printStack(NS::stack<T>& s)
+void	printStackRec(NS::stack<T>& s)
 {
 	if (s.empty())
 		return ;
 
 	T	x = s.top();
 	s.pop();
-	printStack(s);
+	printStackRec(s);
 	std::cout << x << " ";
 	s.push(x);
 }
 
+
+template<class T>
+void	printStack(NS::stack<T>& s, const std::string& str)
+{
+	std::cout << "Printing stack " << str << " :" << std::endl;
+	if (!s.empty())
+		std::cout << "  - top : " << s.top() << std::endl;
+	std::cout << "  - empty : " << s.empty() << std::endl;
+	std::cout << "  - size : " << s.size() << std::endl;
+	std::cout << "  - content : " << std::endl;
+	printStackRec(s);
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
 namespace tester
 {
 
