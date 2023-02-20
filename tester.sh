@@ -13,6 +13,8 @@ KO_TEXT="\e[91m[KO]\e[0m"
 TO_TEXT="\e[91m[TO]\e[0m"
 SEGV_TEXT="\e[91m[SEGV]\e[0m"
 LEAKS_TEXT="\e[91m[LEAKS]\e[0m"
+INVRW_TEXT="\e[91m[INVRW]\e[0m"
+CONDJ_TEXT="\e[91m[CONDJ]\e[0m"
 
 
 COLS_CURRENT_TEST=34
@@ -63,8 +65,11 @@ function out_std_vector {
 		echo -en "    $OK_TEXT     ║"
 		rm -rf vector/errors/${TEST_NAME}_ft
 	else
-		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║"
-	#	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
+		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║    $KO_TEXT    ║"
+		if [ $COUNT_MAP -eq $COUNT_MAX_MAP ]
+		then
+			echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╩════════════╝"
+		fi
 		return
 	fi
 
@@ -83,6 +88,7 @@ function out_std_vector {
 		echo -en "  $SEGV_TEXT   ║"
 	else
 		echo -en "   $KO_TEXT    ║"
+		rm -rf vector/errors/${TEST_NAME}_ft
 	fi
 	diff vector/logs/${TEST_NAME}_std vector/logs/${TEST_NAME}_ft > vector/diffs/${TEST_NAME}.diff
 	DIFF_EXIT_CODE=$?
@@ -93,18 +99,25 @@ function out_std_vector {
 	else
 		echo -en "  $KO_TEXT  ║"
 	fi
-	if [ $(cat ./vector/leaks/ft_${TEST_NAME} | grep LEAK | wc -l) -eq 0 ]
+	LEAKS=$(cat ./vector/leaks/ft_${TEST_NAME} | grep LEAK | wc -l)
+	INVRW=$(cat ./vector/leaks/ft_${TEST_NAME} | grep Invalid | wc -l)
+	CONDJ=$(cat ./vector/leaks/ft_${TEST_NAME} | grep Conditional | wc -l)
+	if [ $LEAKS -ne 0 ] 
 	then
+		echo -e "   $LEAKS_TEXT  ║"
+	elif [ $INVRW -ne 0 ]
+	then
+		echo -e "   $INVRW_TEXT  ║"
+	elif [ $CONDJ -ne 0 ]
+	then
+		echo -e "   $CONDJ_TEXT  ║"
+	else
 		echo -e "    $OK_TEXT    ║"
 		rm -rf vector/leaks/ft_${TEST_NAME}
-	else
-		echo -e "   $LEAKS_TEXT  ║"
 	fi
 	if [ $COUNT_VECTOR -eq $COUNT_MAX_VECTOR ]
 	then
-		echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╝"
-	#else
-		#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
+		echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╩════════════╝"
 	fi
 }
 
@@ -130,12 +143,10 @@ function out_std_map {
 		echo -en "    $OK_TEXT     ║"
 		rm -rf map/errors/${TEST_NAME}_ft
 	else
-		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║"
+		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║    $KO_TEXT    ║"
 		if [ $COUNT_MAP -eq $COUNT_MAX_MAP ]
 		then
-			echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╝"
-		#else
-			#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
+			echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╩════════════╝"
 		fi
 		return
 	fi
@@ -158,6 +169,7 @@ function out_std_map {
 		echo -en "   $TO_TEXT    ║"
 	else
 		echo -en "   $KO_TEXT    ║"
+		rm -rf map/errors/${TEST_NAME}_ft
 	fi
 	diff map/logs/${TEST_NAME}_std map/logs/${TEST_NAME}_ft > map/diffs/${TEST_NAME}.diff
 	DIFF_EXIT_CODE=$?
@@ -168,18 +180,25 @@ function out_std_map {
 	else
 		echo -en "  $KO_TEXT  ║"
 	fi
-	if [ $(cat ./map/leaks/ft_${TEST_NAME} | grep LEAK | wc -l) -eq 0 ]
+	LEAKS=$(cat ./map/leaks/ft_${TEST_NAME} | grep LEAK | wc -l)
+	INVRW=$(cat ./map/leaks/ft_${TEST_NAME} | grep Invalid | wc -l)
+	CONDJ=$(cat ./map/leaks/ft_${TEST_NAME} | grep Conditional | wc -l)
+	if [ $LEAKS -ne 0 ] 
 	then
+		echo -e "   $LEAKS_TEXT  ║"
+	elif [ $INVRW -ne 0 ]
+	then
+		echo -e "   $INVRW_TEXT  ║"
+	elif [ $CONDJ -ne 0 ]
+	then
+		echo -e "   $CONDJ_TEXT  ║"
+	else
 		echo -e "    $OK_TEXT    ║"
 		rm -rf map/leaks/ft_${TEST_NAME}
-	else
-		echo -e "   $LEAKS_TEXT  ║"
 	fi
 	if [ $COUNT_MAP -eq $COUNT_MAX_MAP ]
 	then
 		echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╩════════════╝"
-	#else
-		#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
 	fi
 }
 
@@ -204,12 +223,10 @@ function out_std_stack {
 		echo -en "    $OK_TEXT     ║"
 		rm -rf stack/errors/${TEST_NAME}_ft
 	else
-		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║"
+		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║    $KO_TEXT    ║"
 		if [ $COUNT_STACK -eq $COUNT_MAX_STACK ]
 		then
 			echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╩════════════╝"
-		#else
-			#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
 		fi
 		return
 	fi
@@ -224,6 +241,7 @@ function out_std_stack {
 	if [ $STD_EXIT_CODE -eq $FT_EXIT_CODE ]
 	then
 		echo -en "   $OK_TEXT    ║"
+		rm -rf stack/errors/${TEST_NAME}_ft
 	elif [ $FT_EXIT_CODE -eq 139 ]
 	then
 		echo -en "  $SEGV_TEXT   ║"
@@ -242,18 +260,25 @@ function out_std_stack {
 	else
 		echo -en "  $KO_TEXT  ║"
 	fi
-	if [ $(cat ./stack/leaks/ft_${TEST_NAME} | grep LEAK | wc -l) -eq 0 ]
+	LEAKS=$(cat ./stack/leaks/ft_${TEST_NAME} | grep LEAK | wc -l)
+	INVRW=$(cat ./stack/leaks/ft_${TEST_NAME} | grep Invalid | wc -l)
+	CONDJ=$(cat ./stack/leaks/ft_${TEST_NAME} | grep Conditional | wc -l)
+	if [ $LEAKS -ne 0 ] 
 	then
+		echo -e "   $LEAKS_TEXT  ║"
+	elif [ $INVRW -ne 0 ]
+	then
+		echo -e "   $INVRW_TEXT  ║"
+	elif [ $CONDJ -ne 0 ]
+	then
+		echo -e "   $CONDJ_TEXT  ║"
+	else
 		echo -e "    $OK_TEXT    ║"
 		rm -rf stack/leaks/ft_${TEST_NAME}
-	else
-		echo -e "   $LEAKS_TEXT  ║"
-	fi
+	fi	
 	if [ $COUNT_STACK -eq $COUNT_MAX_STACK ]
 	then
 		echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╩════════════╝"
-	#else
-		#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
 	fi
 }
 

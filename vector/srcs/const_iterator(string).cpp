@@ -6,7 +6,7 @@
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:08:54 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/14 18:28:35 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/20 17:13:46 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,22 +104,22 @@ int	main(void)
 		cit = 5 + cit;
 		std::cout << *cit << std::endl;
 
-		std::cout << (v.end() - cit) << std::endl;
+		std::cout << (v2.end() - cit) << std::endl;
 
 		std::cout << cit[12] << std::endl;
 
-		NS::vector<std::string>::const_iterator	other	= v.begin();
+		NS::vector<std::string>::const_iterator	other	= v2.begin();
 		std::cout << (other == cit) << std::endl;
-		std::cout << (other == v.begin()) << std::endl;
+		std::cout << (other == v2.begin()) << std::endl;
 		std::cout << (other != cit) << std::endl;
-		std::cout << (other != v.begin()) << std::endl;
+		std::cout << (other != v2.begin()) << std::endl;
 		std::cout << (other > cit) << std::endl;
-		std::cout << (other > v.begin()) << std::endl;
+		std::cout << (other > v2.begin()) << std::endl;
 		std::cout << (other < cit) << std::endl;
-		std::cout << (other < v.begin()) << std::endl;
+		std::cout << (other < v2.begin()) << std::endl;
 		std::cout << (other >= cit) << std::endl;
-		std::cout << (other >= v.begin()) << std::endl;
+		std::cout << (other >= v2.begin()) << std::endl;
 		std::cout << (other <= cit) << std::endl;
-		std::cout << (other <= v.begin()) << std::endl;
+		std::cout << (other <= v2.begin()) << std::endl;
 	}
 }
