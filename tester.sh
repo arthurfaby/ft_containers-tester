@@ -12,6 +12,7 @@ OK_TEXT="\e[92m[OK]\e[0m"
 KO_TEXT="\e[91m[KO]\e[0m"
 TO_TEXT="\e[91m[TO]\e[0m"
 SEGV_TEXT="\e[91m[SEGV]\e[0m"
+LEAKS_TEXT="\e[91m[LEAKS]\e[0m"
 
 
 COLS_CURRENT_TEST=34
@@ -69,7 +70,7 @@ function out_std_vector {
 
 	{ ./vector/bin/${STD_BIN_NAME} > vector/logs/${TEST_NAME}_std; } 2>> vector/errors/${TEST_NAME}_std & std_pid=$!;
 	
-	{ ./vector/bin/${FT_BIN_NAME} > vector/logs/${TEST_NAME}_ft; } 2>> vector/errors/${TEST_NAME}_ft & ft_pid=$!;
+	{ valgrind --log-file=./vector/leaks/ft_${TEST_NAME} ./vector/bin/${FT_BIN_NAME} > vector/logs/${TEST_NAME}_ft; } 2>> vector/errors/${TEST_NAME}_ft & ft_pid=$!;
 
 	wait ${ft_pid};	FT_EXIT_CODE=$?;
 
@@ -87,10 +88,17 @@ function out_std_vector {
 	DIFF_EXIT_CODE=$?
 	if [ $DIFF_EXIT_CODE -eq 0 ]
 	then 
-		echo -e "  $OK_TEXT  ║"
+		echo -en "  $OK_TEXT  ║"
 		rm -rf vector/diffs/${TEST_NAME}.diff
 	else
-		echo -e "  $KO_TEXT  ║"
+		echo -en "  $KO_TEXT  ║"
+	fi
+	if [ $(cat ./vector/leaks/ft_${TEST_NAME} | grep LEAK | wc -l) -eq 0 ]
+	then
+		echo -e "    $OK_TEXT    ║"
+		rm -rf vector/leaks/ft_${TEST_NAME}
+	else
+		echo -e "   $LEAKS_TEXT  ║"
 	fi
 	if [ $COUNT_VECTOR -eq $COUNT_MAX_VECTOR ]
 	then
@@ -132,9 +140,9 @@ function out_std_map {
 		return
 	fi
 
-	{ timeout 5 ./map/bin/${STD_BIN_NAME} > map/logs/${TEST_NAME}_std; } 2> /dev/null & std_pid=$!;
+	{ ./map/bin/${STD_BIN_NAME} > map/logs/${TEST_NAME}_std; } 2> /dev/null & std_pid=$!;
 	
-	{ timeout 5 ./map/bin/${FT_BIN_NAME} > map/logs/${TEST_NAME}_ft; } 2>> map/errors/${TEST_NAME}_ft & ft_pid=$!;
+	{ valgrind --log-file=./map/leaks/ft_${TEST_NAME} ./map/bin/${FT_BIN_NAME} > map/logs/${TEST_NAME}_ft; } 2>> map/errors/${TEST_NAME}_ft & ft_pid=$!;
 
 	wait ${ft_pid};	FT_EXIT_CODE=$?;
 	wait ${std_pid}; STD_EXIT_CODE=$?;
@@ -155,14 +163,21 @@ function out_std_map {
 	DIFF_EXIT_CODE=$?
 	if [ $DIFF_EXIT_CODE -eq 0 ]
 	then 
-		echo -e "  $OK_TEXT  ║"
+		echo -en "  $OK_TEXT  ║"
 		rm -rf map/diffs/${TEST_NAME}.diff
 	else
-		echo -e "  $KO_TEXT  ║"
+		echo -en "  $KO_TEXT  ║"
+	fi
+	if [ $(cat ./map/leaks/ft_${TEST_NAME} | grep LEAK | wc -l) -eq 0 ]
+	then
+		echo -e "    $OK_TEXT    ║"
+		rm -rf map/leaks/ft_${TEST_NAME}
+	else
+		echo -e "   $LEAKS_TEXT  ║"
 	fi
 	if [ $COUNT_MAP -eq $COUNT_MAX_MAP ]
 	then
-		echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╝"
+		echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╩════════════╝"
 	#else
 		#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
 	fi
@@ -192,16 +207,16 @@ function out_std_stack {
 		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║"
 		if [ $COUNT_STACK -eq $COUNT_MAX_STACK ]
 		then
-			echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╝"
+			echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╩════════════╝"
 		#else
 			#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
 		fi
 		return
 	fi
 
-	{ timeout 5 ./stack/bin/${STD_BIN_NAME} > stack/logs/${TEST_NAME}_std; } 2> /dev/null & std_pid=$!;
+	{ ./stack/bin/${STD_BIN_NAME} > stack/logs/${TEST_NAME}_std; } 2> /dev/null & std_pid=$!;
 	
-	{ timeout 5 ./stack/bin/${FT_BIN_NAME} > stack/logs/${TEST_NAME}_ft; } 2>> stack/errors/${TEST_NAME}_ft & ft_pid=$!;
+	{ valgrind --log-file=./stack/leaks/ft_${TEST_NAME} ./stack/bin/${FT_BIN_NAME} > stack/logs/${TEST_NAME}_ft; } 2>> stack/errors/${TEST_NAME}_ft & ft_pid=$!;
 
 	wait ${ft_pid};	FT_EXIT_CODE=$?;
 	wait ${std_pid}; STD_EXIT_CODE=$?;
@@ -222,14 +237,21 @@ function out_std_stack {
 	DIFF_EXIT_CODE=$?
 	if [ $DIFF_EXIT_CODE -eq 0 ]
 	then 
-		echo -e "  $OK_TEXT  ║"
+		echo -en "  $OK_TEXT  ║"
 		rm -rf stack/diffs/${TEST_NAME}.diff
 	else
-		echo -e "  $KO_TEXT  ║"
+		echo -en "  $KO_TEXT  ║"
+	fi
+	if [ $(cat ./stack/leaks/ft_${TEST_NAME} | grep LEAK | wc -l) -eq 0 ]
+	then
+		echo -e "    $OK_TEXT    ║"
+		rm -rf stack/leaks/ft_${TEST_NAME}
+	else
+		echo -e "   $LEAKS_TEXT  ║"
 	fi
 	if [ $COUNT_STACK -eq $COUNT_MAX_STACK ]
 	then
-		echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╝"
+		echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╩════════════╝"
 	#else
 		#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
 	fi
@@ -254,11 +276,15 @@ function test_vector {
 	then
 		mkdir vector/bin
 	fi
-	echo "╔═════════════════════════════════════════════════════════════════════╗"
-	echo "║                                VECTOR                               ║"
-	echo "╠══════════════════════════════════╦═════════════╦═══════════╦════════╣"
-	echo "║           Current test           ║ Compilation ║ Exit code ║ Output ║"
-	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"	
+	if [ ! -d vector/leaks ]
+	then
+		mkdir vector/leaks
+	fi
+	echo "╔══════════════════════════════════════════════════════════════════════════════════╗"
+	echo "║                                        VECTOR                                    ║"
+	echo "╠══════════════════════════════════╦═════════════╦═══════════╦════════╦════════════╣"
+	echo "║           Current test           ║ Compilation ║ Exit code ║ Output ║  Valgrind  ║"
+	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╬════════════╣"	
 
 	for file in $VECTOR_FILES
 	do
@@ -305,11 +331,16 @@ function test_map {
 	then
 		mkdir map/bin
 	fi
-	echo "╔═════════════════════════════════════════════════════════════════════╗"
-	echo "║                                   MAP                               ║"
-	echo "╠══════════════════════════════════╦═════════════╦═══════════╦════════╣"
-	echo "║           Current test           ║ Compilation ║ Exit code ║ Output ║"
-	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"	
+	if [ ! -d map/leaks ]
+	then
+		mkdir map/leaks
+	fi
+	echo "╔══════════════════════════════════════════════════════════════════════════════════╗"
+	echo "║                                          MAP                                     ║"
+	echo "╠══════════════════════════════════╦═════════════╦═══════════╦════════╦════════════╣"
+	echo "║           Current test           ║ Compilation ║ Exit code ║ Output ║  Valgrind  ║"
+	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╬════════════╣"	
+
 
 	for file in $MAP_FILES
 	do
@@ -356,12 +387,15 @@ function test_stack {
 	then
 		mkdir stack/bin
 	fi
-	echo "╔═════════════════════════════════════════════════════════════════════╗"
-	echo "║                                 STACK                               ║"
-	echo "╠══════════════════════════════════╦═════════════╦═══════════╦════════╣"
-	echo "║           Current test           ║ Compilation ║ Exit code ║ Output ║"
-	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"	
-
+	if [ ! -d stack/leaks ]
+	then
+		mkdir stack/leaks
+	fi
+	echo "╔══════════════════════════════════════════════════════════════════════════════════╗"
+	echo "║                                         STACK                                    ║"
+	echo "╠══════════════════════════════════╦═════════════╦═══════════╦════════╦════════════╣"
+	echo "║           Current test           ║ Compilation ║ Exit code ║ Output ║  Valgrind  ║"
+	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╬════════════╣"	
 	for file in $STACK_FILES
 	do
 		out_std_stack $file
@@ -396,20 +430,25 @@ then
 	rm -rf ./map/logs/
 	rm -rf ./map/errors/
 	rm -rf ./map/bin/
+	rm -rf ./map/leaks/
 	rm -rf ./vector/diffs/
 	rm -rf ./vector/logs/
 	rm -rf ./vector/errors/
 	rm -rf ./vector/bin/
+	rm -rf ./vector/leaks/
 	rm -rf ./stack/diffs/
 	rm -rf ./stack/logs/
 	rm -rf ./stack/errors/
 	rm -rf ./stack/bin/
+	rm -rf ./stack/leaks/
 	exit
 fi
 
 if [ $# -eq 0 ]
 then
-	exit 1
+	test_stack
+	test_vector
+	test_map
 fi
 
 print_header

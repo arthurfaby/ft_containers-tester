@@ -6,7 +6,7 @@
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:14:41 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/20 13:37:05 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/20 16:49:10 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ std::string	to_string(int i)
 	return (res);
 }
 
-#ifndef TEXT_SIZE
+#ifndef TEST_SIZE
 	#define TEST_SIZE 100
 #endif
 

@@ -381,7 +381,6 @@ function test_stack {
 	echo "║           Current test           ║     STL time     ║     FT time      ║         Ratio        ║"
 	echo "╠══════════════════════════════════╬══════════════════╬══════════════════╬══════════════════════╣"
 
-
 	for file in $STACK_FILES
 	do
 		out_std_stack $file
@@ -415,20 +414,25 @@ then
 	rm -rf ./map/logs/
 	rm -rf ./map/errors/
 	rm -rf ./map/bin/
+	rm -rf ./map/leaks/
 	rm -rf ./vector/diffs/
 	rm -rf ./vector/logs/
 	rm -rf ./vector/errors/
 	rm -rf ./vector/bin/
+	rm -rf ./vector/leaks/
 	rm -rf ./stack/diffs/
 	rm -rf ./stack/logs/
 	rm -rf ./stack/errors/
 	rm -rf ./stack/bin/
+	rm -rf ./stack/leaks/
 	exit
 fi
 
 if [ $# -eq 0 ]
 then
-	exit 1
+	test_stack
+	test_vector
+	test_map
 fi
 
 print_header
