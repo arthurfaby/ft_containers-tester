@@ -392,10 +392,18 @@ function test_stack {
 
 if [ "$1" == "clean" ]
 then
-	rm -rf ./$2/diffs
-	rm -rf ./$2/logs
-	rm -rf ./$2/errors
-	rm -rf ./$2/bin
+	rm -rf ./map/diffs/
+	rm -rf ./map/logs/
+	rm -rf ./map/errors/
+	rm -rf ./map/bin/
+	rm -rf ./vector/diffs/
+	rm -rf ./vector/logs/
+	rm -rf ./vector/errors/
+	rm -rf ./vector/bin/
+	rm -rf ./stack/diffs/
+	rm -rf ./stack/logs/
+	rm -rf ./stack/errors/
+	rm -rf ./stack/bin/
 	exit
 fi
 
