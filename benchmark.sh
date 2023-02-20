@@ -5,7 +5,7 @@ MAP_FILES="./map/srcs/*.cpp"
 #VECTOR_FILES="./vector/srcs/assign.cpp"
 
 CC="c++"
-CFLAGS="-std=c++98 -Wall -Wextra -Werror -DTEST_SIZE=100"
+CFLAGS="-std=c++98 -Wall -Wextra -Werror -DTEST_SIZE=1000"
 FT="-DNS=ft"
 
 OK_TEXT="\e[92m[OK]\e[0m"
@@ -28,17 +28,6 @@ COUNT_MAX_MAP=$(ls ./map/srcs/*.cpp | wc -l)
 COMPILE="$CC $CFLAGS"
 
 function print_header {
-	echo "# **************************************************************************** #"
-	echo "#                                                                              #"
-	echo "#                                                         :::      ::::::::    #"
-	echo "#                                                       :+:      :+:    :+:    #"
-	echo "#    ft_containers tester                             +:+ +:+         +:+      #"
-	echo "#                                                   +#+  +:+       +#+         #"
-	echo "#                                                 +#+#+#+#+#+   +#+            #"
-	echo "#    By: afaby <afaby@student.42angouleme.fr>          #+#    #+#              #"
-	echo "#                                                     ###   ########.fr        #"
-	echo "#                                                                              #"
-	echo "# **************************************************************************** #"
 	echo
 }
 

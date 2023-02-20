@@ -27,17 +27,6 @@ COUNT_MAX_MAP=$(ls ./map/srcs/*.cpp | wc -l)
 COMPILE="$CC $CFLAGS"
 
 function print_header {
-	echo "# **************************************************************************** #"
-	echo "#                                                                              #"
-	echo "#                                                         :::      ::::::::    #"
-	echo "#                                                       :+:      :+:    :+:    #"
-	echo "#    ft_containers tester                             +:+ +:+         +:+      #"
-	echo "#                                                   +#+  +:+       +#+         #"
-	echo "#                                                 +#+#+#+#+#+   +#+            #"
-	echo "#    By: afaby <afaby@student.42angouleme.fr>          #+#    #+#              #"
-	echo "#                                                     ###   ########.fr        #"
-	echo "#                                                                              #"
-	echo "# **************************************************************************** #"
 	echo
 }
 
