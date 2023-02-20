@@ -2,6 +2,7 @@
 
 VECTOR_FILES="./vector/srcs/*.cpp"
 MAP_FILES="./map/srcs/*.cpp"
+STACK_FILES="./stack/srcs/*.cpp"
 
 CC="c++"
 CFLAGS="-std=c++98 -Wall -Wextra -Werror -g"
@@ -23,6 +24,9 @@ COUNT_MAX_VECTOR=$(ls ./vector/srcs/*.cpp | wc -l)
 
 COUNT_MAP=0
 COUNT_MAX_MAP=$(ls ./map/srcs/*.cpp | wc -l)
+
+COUNT_STACK=0
+COUNT_MAX_STACK=$(ls ./stack/srcs/*.cpp | wc -l)
 
 COMPILE="$CC $CFLAGS"
 
@@ -164,6 +168,74 @@ function out_std_map {
 	fi
 }
 
+function out_std_stack {
+	COUNT_STACK=$(( $COUNT_STACK + 1 ))
+	BASE=$(basename $1)
+	TEST_NAME=${BASE%.*}
+	FT_BIN_NAME="ft_${TEST_NAME}"
+	STD_BIN_NAME="std_${TEST_NAME}"
+
+	echo -n "║"
+	center_text $TEST_NAME $COLS_CURRENT_TEST
+
+
+	$COMPILE $1 -o stack/bin/${STD_BIN_NAME} 2> /dev/null & std_pid=$!;
+	$COMPILE $FT $1 -o stack/bin/${FT_BIN_NAME} 2> stack/errors/${TEST_NAME}_ft & ft_pid=$!;
+
+	wait ${std_pid};
+	wait ${ft_pid}; ft_exit_code=$?;
+	if [ $ft_exit_code -eq 0 ]
+	then 
+		echo -en "    $OK_TEXT     ║"
+		rm -rf stack/errors/${TEST_NAME}_ft
+	else
+		echo -e "    $KO_TEXT     ║   $KO_TEXT    ║  $KO_TEXT  ║"
+		if [ $COUNT_STACK -eq $COUNT_MAX_STACK ]
+		then
+			echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╝"
+		#else
+			#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
+		fi
+		return
+	fi
+
+	{ timeout 5 ./stack/bin/${STD_BIN_NAME} > stack/logs/${TEST_NAME}_std; } 2> /dev/null & std_pid=$!;
+	
+	{ timeout 5 ./stack/bin/${FT_BIN_NAME} > stack/logs/${TEST_NAME}_ft; } 2>> stack/errors/${TEST_NAME}_ft & ft_pid=$!;
+
+	wait ${ft_pid};	FT_EXIT_CODE=$?;
+	wait ${std_pid}; STD_EXIT_CODE=$?;
+
+	if [ $STD_EXIT_CODE -eq $FT_EXIT_CODE ]
+	then
+		echo -en "   $OK_TEXT    ║"
+	elif [ $FT_EXIT_CODE -eq 139 ]
+	then
+		echo -en "  $SEGV_TEXT   ║"
+	elif [ $FT_EXIT_CODE -eq 124 ]
+	then
+		echo -en "   $TO_TEXT    ║"
+	else
+		echo -en "   $KO_TEXT    ║"
+	fi
+	diff stack/logs/${TEST_NAME}_std stack/logs/${TEST_NAME}_ft > stack/diffs/${TEST_NAME}.diff
+	DIFF_EXIT_CODE=$?
+	if [ $DIFF_EXIT_CODE -eq 0 ]
+	then 
+		echo -e "  $OK_TEXT  ║"
+		rm -rf stack/diffs/${TEST_NAME}.diff
+	else
+		echo -e "  $KO_TEXT  ║"
+	fi
+	if [ $COUNT_STACK -eq $COUNT_MAX_STACK ]
+	then
+		echo "╚══════════════════════════════════╩═════════════╩═══════════╩════════╝"
+	#else
+		#echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"
+	fi
+}
+
+
 function test_vector { 
 #	./tester.sh clean "vector"
 	if [ ! -d vector/logs ]
@@ -266,6 +338,58 @@ function test_map {
 	done
 }
 
+function test_stack { 
+#	./tester.sh clean "stack"
+	if [ ! -d stack/logs ]
+	then
+		mkdir stack/logs
+	fi
+	if [ ! -d stack/diffs ]
+	then
+		mkdir stack/diffs
+	fi
+	if [ ! -d stack/errors ]
+	then
+		mkdir stack/errors
+	fi
+	if [ ! -d stack/bin ]
+	then
+		mkdir stack/bin
+	fi
+	echo "╔═════════════════════════════════════════════════════════════════════╗"
+	echo "║                                 STACK                               ║"
+	echo "╠══════════════════════════════════╦═════════════╦═══════════╦════════╣"
+	echo "║           Current test           ║ Compilation ║ Exit code ║ Output ║"
+	echo "╠══════════════════════════════════╬═════════════╬═══════════╬════════╣"	
+
+	for file in $STACK_FILES
+	do
+		out_std_stack $file
+	done
+	for file in stack/logs/*
+	do
+		if [ ! -s $file ]
+		then
+			rm -f $file
+		fi
+	done
+	for file in stack/errors/*
+	do
+		if [ ! -s $file ]
+		then
+			rm -f $file
+		fi
+	done
+	for file in stack/diffs/*
+	do
+		if [ ! -s $file ]
+		then
+			rm -f $file
+		fi
+	done
+}
+
+
 if [ "$1" == "clean" ]
 then
 	rm -rf ./$2/diffs
@@ -291,5 +415,9 @@ do
 	if [ "$var" == "map" ]
 	then
 		test_map
+	fi
+	if [ "$var" == "stack" ]
+	then
+		test_stack
 	fi
 done
