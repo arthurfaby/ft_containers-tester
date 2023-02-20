@@ -6,7 +6,7 @@
 /*   By: afaby <afaby@student.42angouleme.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 16:53:30 by afaby             #+#    #+#             */
-/*   Updated: 2023/02/14 18:34:57 by afaby            ###   ########.fr       */
+/*   Updated: 2023/02/20 18:37:53 by afaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,4 @@ int	main(void)
 	v.insert(v.begin() + 5, v2.begin() + 5, v2.end() - 4);
 	printVector(v);
 	printVector(v2);
-	for (size_t i = 0; i < TEST_SIZE; ++i)
-		v.insert(v.begin(), v.at(i));
-	printVector(v);
-
 }
